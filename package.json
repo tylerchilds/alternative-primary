@@ -1,0 +1,20 @@
+{
+  "name": "wildcard",
+  "version": "1.0.0",
+  "description": "An online voting system to elect a wildcard candidate. Think primaries for third party.",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "firebase": "^3.4.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tyler Childs",
+  "license": "MIT"
+}
