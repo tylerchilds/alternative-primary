@@ -1,6 +1,7 @@
-var express = require('express');
-var session = require('express-session')
-var services = require('./lib/services');
+import express from 'express'
+import session from 'express-session'
+import services from './lib/services'
+
 require('dotenv').config();
 
 var app = express();
@@ -11,7 +12,7 @@ app.use(services.passport.initialize());
 app.use(services.passport.session());
 
 // respond with "hello world" when a GET request is made to the homepage
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.send('<a href="/auth/facebook">Connect</a>');
 });
 
@@ -23,8 +24,7 @@ app.get('/auth/facebook/callback',
     // Successful authentication, redirect home.
     //res.redirect('/');
     res.send('hello facebook');
-  });
+  }
+);
 
-app.listen(5000, function () {
-  console.log('http://localhost:5000/');
-});
+app.listen(5000, () => console.log('http://localhost:5000/'));
