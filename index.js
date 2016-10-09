@@ -1,25 +1,16 @@
-import express from 'express'
-import session from 'express-session'
-import services from './lib/services'
-
-require('dotenv').config();
-
-var app = express();
-
-app.use(express.static('public'));
-app.use(session({secret: process.env.SESSION_SECRET}));
-app.use(services.passport.initialize());
-app.use(services.passport.session());
+import app from './services/express'
+import firebase from './services/firebase'
+import passport from './services/passport'
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
   res.send('<a href="/auth/facebook">Connect</a>');
 });
 
-app.get('/auth/facebook', services.passport.authenticate('facebook'));
+app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-  services.passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     //res.redirect('/');

@@ -1,19 +1,11 @@
-var firebase = require('firebase');
-var passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
-import Voter from './voter'
+import firebase from './firebase'
+import passport from 'passport'
+import FB from 'passport-facebook'
+import Voter from '../lib/voter'
 
 require('dotenv').config();
 
-firebase.initializeApp({
-  apiKey: process.env.FIREBASE_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DB_URL,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_SENDER_ID
-});
-
-passport.use(new FacebookStrategy({
+passport.use(new FB.Strategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: process.env.FACEBOOK_CALLBACK,
@@ -40,8 +32,6 @@ passport.use(new FacebookStrategy({
   }
 ));
 
-
-
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -50,4 +40,4 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-module.exports = { passport: passport, firebase: firebase };
+export default passport
