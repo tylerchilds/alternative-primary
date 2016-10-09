@@ -14,5 +14,4 @@ app.use(passport.session());
 
 app.listen(5000, () => console.log('http://localhost:5000/'));
 
-
 export default app
