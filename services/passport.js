@@ -7,6 +7,19 @@ require('dotenv').config();
 
 const db = firebase.database()
 
+const authCallback = (user, profile, cb) => {
+  // if signed in
+  if (user) {
+    let voter = new Voter(profile);
+    voter.on('ready', () => {
+      db.ref('voters/' + voter.id).set(voter.serialize())
+      cb(null, user)
+    })
+  } else {
+    cb(null, {...voter.serialize(), signedIn: false})
+  }
+}
+
 const authentication = function(accessToken, refreshToken, profile, cb) {
   var credential = firebase.auth.FacebookAuthProvider.credential(accessToken);
   firebase.auth()
@@ -14,15 +27,7 @@ const authentication = function(accessToken, refreshToken, profile, cb) {
     .catch((error) => console.log('SIGN IN FAILED:', error));
 
   firebase.auth()
-    .onAuthStateChanged(function(user) {
-      if (user) {
-        var voter = new Voter(profile);
-        voter.on('ready', () => {
-          db.ref('voters/' + voter.id).set(voter.serialize())
-          cb(null, voter.serialize())
-        })
-      }
-    });
+    .onAuthStateChanged((user) => authCallback(user, profile, cb));
 }
 
 const strategy = new FB.Strategy({

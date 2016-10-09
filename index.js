@@ -4,7 +4,7 @@ import passport from './services/passport'
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
-  res.send('<a href="/auth/facebook">Connect</a>');
+  res.render('index', { title: 'Boom, baby!'});
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
@@ -14,8 +14,6 @@ app.get('/auth/facebook/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     //res.redirect('/');
-    res.send('hello facebook');
+    res.render('callback', { title: 'Boom, baby!'});
   }
 );
-
-app.listen(5000, () => console.log('http://localhost:5000/'));
