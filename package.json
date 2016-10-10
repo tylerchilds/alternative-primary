@@ -18,12 +18,15 @@
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-stage-2": "^6.17.0",
+    "node-sass": "^3.10.1",
+    "nodemon": "^1.11.0",
     "webpack": "^1.13.2"
   },
   "scripts": {
     "start": "babel-node index.js --presets es2015,stage-2",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "assets": "webpack --config webpack.config.js -d --display-reasons --display-chunks --progress --watch --colors"
+    "js": "webpack --config webpack.config.js -d --display-reasons --display-chunks --progress --watch --colors",
+    "css": "node-sass --include-path scss src/css/app.scss public/css/app.css"
   },
   "author": "Tyler Childs",
   "license": "MIT",

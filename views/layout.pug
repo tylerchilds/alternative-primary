@@ -1,7 +1,8 @@
 html
   head
     title= title
-  body
+    link(rel="stylesheet", href="css/app.css")
+  body.wrapper
     block content
     block scripts
-      script(type="text/javascript")(src="bundles/app.js")
+      script(type="text/javascript", src="js/app.js")

@@ -10,7 +10,7 @@ var config = module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/public/bundles'
+    path: __dirname + '/public/js'
   }
 };
 
