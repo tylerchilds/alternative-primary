@@ -9,4 +9,4 @@ firebase.initializeApp({
   messagingSenderId: process.env.FIREBASE_SENDER_ID
 });
 
-export default firebase
+module.exports = firebase

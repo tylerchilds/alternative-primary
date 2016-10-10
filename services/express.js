@@ -1,17 +1,18 @@
-import express from 'express'
-import session from 'express-session'
-import passport from './passport'
+const express = require('express')
+const session = require('express-session')
+const passport = require('./passport')
 require('dotenv').config();
 
 let app = express();
 
 app.set('view engine', 'pug');
+app.set('port', (process.env.PORT || 5000));
 
-app.use(express.static('public'));
+app.use(express.static('dist'));
 app.use(session({secret: process.env.SESSION_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.listen(5000, () => console.log('http://localhost:5000/'));
+app.listen(app.get('port'), () => console.log(`App running on port: ${app.get('port')}`));
 
-export default app
+module.exports = app

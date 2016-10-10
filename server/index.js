@@ -1,6 +1,6 @@
-import app from './services/express'
-import firebase from './services/firebase'
-import passport from './services/passport'
+import app from '../services/express'
+import firebase from '../services/firebase'
+import passport from '../services/passport'
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {

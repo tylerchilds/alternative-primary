@@ -1,7 +1,7 @@
-import firebase from './firebase'
-import passport from 'passport'
-import FB from 'passport-facebook'
-import Voter from '../lib/voter'
+const firebase = require('./firebase')
+const passport = require('passport')
+const FB = require('passport-facebook')
+const Voter = require('../lib/voter')
 
 require('dotenv').config();
 
@@ -40,4 +40,4 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-export default passport
+module.exports = passport
