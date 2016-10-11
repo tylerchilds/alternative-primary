@@ -5,11 +5,24 @@ const Voter = require('../lib/voter')
 
 require('dotenv').config();
 
+const FIELDS = [
+  'id',
+  'age_range',
+  'hometown',
+  'verified',
+  'tagged_places',
+  'friends',
+  'location',
+  'events',
+  'education',
+  'work'
+]
+
 passport.use(new FB.Strategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: process.env.FACEBOOK_CALLBACK,
-    profileFields: ['id', 'age_range', 'hometown', 'verified', 'tagged_places']
+    profileFields: FIELDS
   },
   function(accessToken, refreshToken, profile, cb) {
     var credential = firebase.auth.FacebookAuthProvider.credential(accessToken);
@@ -21,7 +34,6 @@ passport.use(new FB.Strategy({
       if (user) {
         var voter = new Voter(profile, firebase.database());
         voter.on('ready', (result) => {
-          console.log(result)
           cb(null, result)
         })
       }
