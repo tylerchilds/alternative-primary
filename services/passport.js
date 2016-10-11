@@ -11,10 +11,8 @@ const FIELDS = [
   'hometown',
   'verified',
   'tagged_places',
-  'friends',
   'location',
   'events',
-  'education',
   'work'
 ]
 
