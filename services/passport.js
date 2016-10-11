@@ -1,7 +1,6 @@
 const firebase = require('./firebase')
 const passport = require('passport')
 const FB = require('passport-facebook')
-const Voter = require('../lib/voter')
 
 require('dotenv').config();
 
@@ -30,10 +29,7 @@ passport.use(new FB.Strategy({
 
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        var voter = new Voter(profile, firebase.database());
-        voter.on('ready', (result) => {
-          cb(null, result)
-        })
+        cb(null, profile)
       }
     });
   }

@@ -1,5 +1,10 @@
 extends layout.pug
 
+block head
+  meta(http-equiv="refresh",content="3;url=/score")
+
 block content
-  h1
-    Hello Facebook!
+  p.
+    You will be redirected within the next 3 seconds.
+  script(type="text/javascript").
+    window.location.href = "/process"
