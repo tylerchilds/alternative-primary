@@ -7,7 +7,7 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'Boom, baby!'});
 });
 
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['user_posts', 'user_tagged_places', 'user_birthday', 'user_photos', 'user_hometown', 'user_likes', 'user_location']}));
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),

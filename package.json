@@ -4,6 +4,7 @@
   "description": "An online voting system to elect a wildcard candidate. Think primaries for third party.",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.14.0",
     "babel-cli": "^6.16.0",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
