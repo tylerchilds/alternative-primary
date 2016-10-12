@@ -28,18 +28,20 @@ app.get('/auth/facebook', passport.authenticate('facebook', {scope: SCOPES}));
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/500' }),
   function(req, res) {
+    // callback will redirect to:
+    //  js: /process (to call score via AJAX)
+    //  no-js: /score
     res.render('callback');
   }
 );
 
-app.get('/process', function(req, res) {
-  res.render('process');
-});
-
-app.get('/score/:format', (req, res) => {
+app.get('/score/:format?', (req, res) => {
   var voter = new Voter(req.session.passport.user._json, firebase.database());
 
   voter.on('ready', result => {
+    req.session.user = result;
+    req.session.passport = null;
+console.log(result)
     if (req.params.format) {
       res.sendStatus(204);
     }
@@ -48,7 +50,7 @@ app.get('/score/:format', (req, res) => {
     }
   })
 
-  voter.on('error', result => {
+  voter.on('error', (msg) => {
     if (req.params.format) {
       res.sendStatus(500);
     }
@@ -58,10 +60,6 @@ app.get('/score/:format', (req, res) => {
   })
 })
 
-app.get('/vote', function(req, res) {
-  res.render('vote');
-});
-
-app.get('/complete', function(req, res) {
-  res.render('complete');
+app.get('/:page?', function(req, res) {
+  res.render(req.params.page);
 });
