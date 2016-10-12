@@ -13,7 +13,9 @@ const SCOPES = ['user_posts',
   'user_events',
   'user_work_history',
   'user_religion_politics',
-  'user_actions.news'
+  'user_actions.news',
+  'user_friends',
+  'user_photos'
 ]
 
 // respond with "hello world" when a GET request is made to the homepage
@@ -37,6 +39,6 @@ app.get('/process', function(req, res) {
 app.get('/score', (req, res) => {
   var voter = new Voter(req.session.passport.user._json, firebase.database());
   voter.on('ready', (result) => {
-    console.log('oooops', result)
+    console.log(result)
   })
 })

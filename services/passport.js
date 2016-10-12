@@ -12,7 +12,9 @@ const FIELDS = [
   'tagged_places',
   'location',
   'events',
-  'work'
+  'work',
+  'friends',
+  'albums'
 ]
 
 passport.use(new FB.Strategy({
