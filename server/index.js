@@ -20,7 +20,7 @@ const SCOPES = ['user_posts',
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
-  res.render('index', { title: 'Boom, baby!'});
+  res.render('index');
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook', {scope: SCOPES}));
@@ -28,17 +28,40 @@ app.get('/auth/facebook', passport.authenticate('facebook', {scope: SCOPES}));
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/500' }),
   function(req, res) {
-    res.render('callback', { title: 'Boom, baby!'});
+    res.render('callback');
   }
 );
 
 app.get('/process', function(req, res) {
-  res.render('process', { title: 'Boom, baby!'});
+  res.render('process');
 });
 
-app.get('/score', (req, res) => {
+app.get('/score/:format', (req, res) => {
   var voter = new Voter(req.session.passport.user._json, firebase.database());
-  voter.on('ready', (result) => {
-    console.log(result)
+
+  voter.on('ready', result => {
+    if (req.params.format) {
+      res.sendStatus(204);
+    }
+    else {
+      res.redirect('/ready');
+    }
+  })
+
+  voter.on('error', result => {
+    if (req.params.format) {
+      res.sendStatus(500);
+    }
+    else {
+      res.redirect('/500');
+    }
   })
 })
+
+app.get('/vote', function(req, res) {
+  res.render('vote');
+});
+
+app.get('/complete', function(req, res) {
+  res.render('complete');
+});
