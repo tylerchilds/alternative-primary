@@ -5,20 +5,25 @@ mixin fields(selects)
     +select(s)
 
 mixin select(s)
-  label(class="select")
-    select(name="candidates[]")
-      option(disabled="true",selected="true") Select a Candidate
+  label.select
+    select(name="choices[]")
+      option(value='abstain') Abstain
       each o, i in s.options
         if i === 3
           option(disabled="true") -- On Less Than 20 State Ballots --
         +option(o)
-    span(class="select__label")= s.label
+    span.select__label= s.label
 
 mixin option(o)
-  option(selected=o.selected,disabled=o.disabled)= o.value
+  option(value=o.value,selected=o.selected,disabled=o.disabled)= o.value
 
 block flow-content
+  if error
+    p.error= error
   form(method="post",action="/vote")
     +fields(form.selects)
-
-    input(type="submit")
+    label.checkbox
+      input(type="checkbox",name="abstained",checked=form.abstained)
+      span.checkbox__label I acknowledge that I am abstaining from any choices marked "Abstain"
+    div
+      input(type="submit")

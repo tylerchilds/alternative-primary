@@ -62,12 +62,19 @@ console.log(result)
 
 app.get('/vote', (req, res) => {
   const ballot = new Ballot()
+
   res.render('pages/vote', ballot.serialize())
 })
 
 app.post('/vote', (req, res) => {
-  const ballot = new Ballot()
-  res.render('pages/vote', ballot.serialize())
+  const {choices,abstained} = req.body;
+  const ballot = new Ballot(choices,abstained)
+console.log(req.body)
+  if(ballot.hasError()){
+    res.render('pages/vote', ballot.serialize())
+  } else {
+    res.render('pages/complete')
+  }
 })
 
 app.get('/complete', (req, res) => {
