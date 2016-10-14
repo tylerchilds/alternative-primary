@@ -30,6 +30,16 @@ app.get('/start', (req, res) => {
   res.render('pages/start');
 })
 
+app.get('/dump', (req, res) => {
+  firebase.database().ref('voters')
+    .once('value')
+    .then((snapshot) => {
+      console.log(snapshot.val())
+    }, (errorObject) => {
+      console.log("The read failed: " + errorObject.code);
+    });
+})
+
 app.get('/score', (req, res) => {
   var voter = new Voter(req.session.passport.user._json, firebase.database());
 
@@ -42,11 +52,7 @@ console.log(result)
   })
 
   voter.on('error', (msg) => {
-    if (req.params.format) {
-      res.sendStatus(500);
-    } else {
-      res.redirect('/500');
-    }
+    res.redirect('/500')
   })
 })
 
