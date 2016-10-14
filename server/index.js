@@ -20,7 +20,7 @@ const SCOPES = ['user_posts',
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('pages/index');
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook', {scope: SCOPES}));
@@ -31,7 +31,7 @@ app.get('/auth/facebook/callback',
     // callback will redirect to:
     //  js: /process (to call score via AJAX)
     //  no-js: /score
-    res.render('callback');
+    res.render('pages/callback');
   }
 );
 
@@ -61,5 +61,6 @@ console.log(result)
 })
 
 app.get('/:page?', function(req, res) {
-  res.render(req.params.page);
+  const { page } = req.params;
+  res.render(`pages/${page}`);
 });
