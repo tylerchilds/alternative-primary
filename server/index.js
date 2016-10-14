@@ -2,6 +2,7 @@ import app from '../services/express'
 import firebase from '../services/firebase'
 import passport from '../services/passport'
 import Voter from '../lib/voter'
+import Ballot from '../lib/ballot'
 
 const SCOPES = ['user_posts',
   'user_tagged_places',
@@ -21,7 +22,7 @@ const SCOPES = ['user_posts',
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
   res.render('pages/index');
-});
+})
 
 app.get('/auth/facebook', passport.authenticate('facebook', {scope: SCOPES}));
 
@@ -33,34 +34,42 @@ app.get('/auth/facebook/callback',
     //  no-js: /score
     res.render('pages/callback');
   }
-);
+)
 
-app.get('/score/:format?', (req, res) => {
+app.get('/start', (req, res) => {
+  res.render('pages/start');
+})
+
+app.get('/score', (req, res) => {
   var voter = new Voter(req.session.passport.user._json, firebase.database());
 
   voter.on('ready', result => {
     req.session.user = result;
     req.session.passport = null;
 console.log(result)
-    if (req.params.format) {
-      res.sendStatus(204);
-    }
-    else {
-      res.redirect('/ready');
-    }
+
+    res.redirect('/vote');
   })
 
   voter.on('error', (msg) => {
     if (req.params.format) {
       res.sendStatus(500);
-    }
-    else {
+    } else {
       res.redirect('/500');
     }
   })
 })
 
-app.get('/:page?', function(req, res) {
-  const { page } = req.params;
-  res.render(`pages/${page}`);
-});
+app.get('/vote', (req, res) => {
+  const ballot = new Ballot()
+  res.render('pages/vote', ballot.serialize())
+})
+
+app.post('/vote', (req, res) => {
+  const ballot = new Ballot()
+  res.render('pages/vote', ballot.serialize())
+})
+
+app.get('/complete', (req, res) => {
+  res.render('pages/start');
+})

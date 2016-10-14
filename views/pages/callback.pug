@@ -1,10 +1,8 @@
-extends ../layouts/default.pug
+extends ../layouts/flow.pug
 
 block head
-  meta(http-equiv="refresh",content="0;url=/score")
+  meta(http-equiv="refresh",content="0;url=/vote")
 
-block content
+block flow-content
   p.
     Your profile information is being used to validate your voter eligibility. After this process, your private Facebook data will be removed from our records.
-  script(type="text/javascript").
-    window.location.href = "/process"

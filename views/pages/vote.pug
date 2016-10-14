@@ -1,4 +1,24 @@
-extends ../layouts/default.pug
+extends ../layouts/flow.pug
 
-block content
-  h1 Vote!
+mixin fields(selects)
+  each s in selects
+    +select(s)
+
+mixin select(s)
+  label(class="select")
+    select(name="candidates[]")
+      option(disabled="true",selected="true") Select a Candidate
+      each o, i in s.options
+        if i === 3
+          option(disabled="true") -- On Less Than 20 State Ballots --
+        +option(o)
+    span(class="select__label")= s.label
+
+mixin option(o)
+  option(selected=o.selected,disabled=o.disabled)= o.value
+
+block flow-content
+  form(method="post",action="/vote")
+    +fields(form.selects)
+
+    input(type="submit")
