@@ -29,12 +29,17 @@ app.get('/auth/facebook', passport.authenticate('facebook', {scope: SCOPES}));
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/500' }),
   function(req, res) {
-    // callback will redirect to:
-    //  js: /process (to call score via AJAX)
-    //  no-js: /score
     res.render('pages/callback');
   }
 )
+
+app.get('/logout', (req, res) => {
+  firebase.auth().signOut().then(function() {
+    res.redirect('/');
+  }, function(error) {
+    res.redirect('/500');
+  });
+})
 
 app.get('/start', (req, res) => {
   res.render('pages/start');
