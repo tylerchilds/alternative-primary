@@ -30,30 +30,30 @@ app.get('/start', (req, res) => {
   res.render('pages/start');
 })
 
-app.get('/dump', (req, res) => {
-  firebase.database().ref('voters')
-    .once('value')
-    .then((snapshot) => {
-      console.log(snapshot.val())
-    }, (errorObject) => {
-      console.log("The read failed: " + errorObject.code);
-    });
-})
+// app.get('/dump', (req, res) => {
+//   firebase.database().ref('voters')
+//     .once('value')
+//     .then((snapshot) => {
+//       console.log(snapshot.val())
+//     }, (errorObject) => {
+//       console.log("The read failed: " + errorObject.code);
+//     });
+// })
 
 app.get('/score', (req, res) => {
-  var voter = new Voter(req.session.passport.user._json, firebase.database());
+  const profile = req.session.passport.user._json;
+  var voter = new Voter({
+    profile,
+    success: (result) => {
+      req.session.user = result;
+      req.session.passport = null;
 
-  voter.on('ready', result => {
-    req.session.user = result;
-    req.session.passport = null;
-console.log(result)
-
-    res.redirect('/vote');
-  })
-
-  voter.on('error', (msg) => {
-    res.redirect('/500')
-  })
+      res.redirect('/vote');
+    },
+    error: () => {
+      res.redirect('/500')
+    }
+  });
 })
 
 app.get('/vote', (req, res) => {
@@ -65,7 +65,7 @@ app.get('/vote', (req, res) => {
 app.post('/vote', (req, res) => {
   const {choices,abstained} = req.body;
   const ballot = new Ballot(choices,abstained)
-console.log(req.body)
+
   if(ballot.hasError()){
     res.render('pages/vote', ballot.serialize())
   } else {
