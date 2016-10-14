@@ -4,27 +4,12 @@ import passport from '../services/passport'
 import Voter from '../lib/voter'
 import Ballot from '../lib/ballot'
 
-const SCOPES = ['user_posts',
-  'user_tagged_places',
-  'user_birthday',
-  'user_photos',
-  'user_hometown',
-  'user_likes',
-  'user_location',
-  'user_events',
-  'user_work_history',
-  'user_religion_politics',
-  'user_actions.news',
-  'user_friends',
-  'user_photos'
-]
-
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
   res.render('pages/index');
 })
 
-app.get('/auth/facebook', passport.authenticate('facebook', {scope: SCOPES}));
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: passport.SCOPES}));
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/500' }),

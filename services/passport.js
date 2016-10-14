@@ -4,6 +4,21 @@ const FB = require('passport-facebook')
 
 require('dotenv').config();
 
+passport.scopes = ['user_posts',
+  'user_tagged_places',
+  'user_birthday',
+  'user_photos',
+  'user_hometown',
+  'user_likes',
+  'user_location',
+  'user_events',
+  'user_work_history',
+  'user_religion_politics',
+  'user_actions.news',
+  'user_friends',
+  'user_photos'
+]
+
 const FIELDS = [
   'id',
   'age_range',
