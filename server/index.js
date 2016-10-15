@@ -83,10 +83,8 @@ app.post('/vote', (req, res) => {
   const ballot = new Ballot(req.session.voter, {choices, abstained})
 
   ballot.on('ready', (result) => {
-    conosle.log('how')
     ballot.save(() => res.render('pages/complete'))
   }).on('error', () => {
-    console.log('thats right')
     res.render('pages/vote', ballot.serialize())
   });
 
