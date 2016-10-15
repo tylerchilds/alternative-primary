@@ -42,18 +42,18 @@ app.get('/start', (req, res) => {
 
 app.get('/score', (req, res) => {
   const profile = req.session.passport.user._json;
-  var voter = new Voter({
-    profile,
-    success: (result) => {
-      req.session.user = result;
-      req.session.passport = null;
+  var voter = new Voter(profile)
 
-      res.redirect('/vote');
-    },
-    error: () => {
-      res.redirect('/500')
-    }
+  voter.on('ready', (result) => {
+    req.session.user = result;
+    req.session.passport = null;
+
+    res.redirect('/vote');
+  }).on('error', () => {
+    res.redirect('/500')
   });
+
+  voter.initialize()
 })
 
 app.get('/vote', (req, res) => {
