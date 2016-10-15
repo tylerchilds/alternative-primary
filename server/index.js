@@ -30,22 +30,32 @@ app.get('/start', (req, res) => {
   res.render('pages/start');
 })
 
-// app.get('/dump', (req, res) => {
-//   firebase.database().ref('voters')
-//     .once('value')
-//     .then((snapshot) => {
-//       console.log(snapshot.val())
-//     }, (errorObject) => {
-//       console.log("The read failed: " + errorObject.code);
-//     });
-// })
+app.get('/dump', (req, res) => {
+  firebase.database().ref('voters')
+    .once('value')
+    .then((snapshot) => {
+      console.log(snapshot.val())
+    }, (errorObject) => {
+      console.log("The read failed: " + errorObject.code);
+    });
+
+  firebase.database().ref('ballots')
+    .once('value')
+    .then((snapshot) => {
+      console.log(snapshot.val())
+    }, (errorObject) => {
+      console.log("The read failed: " + errorObject.code);
+    });
+
+  firebase.database().ref('ballots').set({})
+})
 
 app.get('/score', (req, res) => {
   const profile = req.session.passport.user._json;
   var voter = new Voter(profile)
 
   voter.on('ready', (result) => {
-    req.session.user = result;
+    req.session.voter = result;
     req.session.passport = null;
 
     res.redirect('/vote');
@@ -57,20 +67,30 @@ app.get('/score', (req, res) => {
 })
 
 app.get('/vote', (req, res) => {
-  const ballot = new Ballot()
+  const ballot = new Ballot(req.session.voter, {})
 
-  res.render('pages/vote', ballot.serialize())
+  ballot.on('ready', () => {
+    res.render('pages/vote', ballot.serialize())
+  }).on('error', () => {
+    res.render('pages/vote', ballot.serialize())
+  });
+
+  ballot.initialize()
 })
 
 app.post('/vote', (req, res) => {
   const {choices,abstained} = req.body;
-  const ballot = new Ballot(choices,abstained)
+  const ballot = new Ballot(req.session.voter, {choices, abstained})
 
-  if(ballot.hasError()){
+  ballot.on('ready', (result) => {
+    conosle.log('how')
+    ballot.save(() => res.render('pages/complete'))
+  }).on('error', () => {
+    console.log('thats right')
     res.render('pages/vote', ballot.serialize())
-  } else {
-    res.render('pages/complete')
-  }
+  });
+
+  ballot.initialize()
 })
 
 app.get('/complete', (req, res) => {
