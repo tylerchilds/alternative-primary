@@ -1,7 +1,13 @@
 $red: #E0162B;
+$white: lighten(#e3d7bf, 15%);
 $blue: #0052A5;
+
+$red-dark: darken($red, 25%);
+$blue-dark: darken($blue, 20%);
+$white-dark: darken($white, 20%);
 
 $primary: $blue;
 
-$base-font:       'Avenir', 'Avenir Next','Helvetica Neue','Segoe UI', 'Verdana', sans-serif;
-$monospace-font:  'Consolas', 'Monaco', 'Courier New', monospace;
+$heading: 'PT Serif', 'Big Caslon', 'Georgia', serif;
+
+$base-font: 'Avenir', 'Avenir Next', 'Helvetica Neue','Segoe UI', 'Verdana', sans-serif;

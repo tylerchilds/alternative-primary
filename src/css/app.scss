@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Serif:400,700');
+
 @import 'variables';
+@import '../../node_modules/cutestrap/dist/scss/cutestrap';
+
 @import 'mixins';
 @import 'animations';
-@import '../../node_modules/cutestrap/dist/scss/cutestrap';
 
 @import 'styles'

@@ -1,19 +1,19 @@
 @keyframes opacity {
   0% {
-    opacity: .5; }
+    opacity: .7; }
   50% {
-    opacity: .55;}
+    opacity: .75;}
   100% {
-    opacity: .5; }
+    opacity: .7; }
 }
 
 @keyframes background-color {
   0% {
     background-color: $red; }
-  25% {
-    background-color: lighten($red, 10%);}
-  75% {
-    background-color: darken($red, 10%);}
+  33% {
+    background-color: $white;}
+  66% {
+    background-color: $blue;}
   100% {
     background-color: $red; }
 }
