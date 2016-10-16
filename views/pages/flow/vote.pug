@@ -10,7 +10,7 @@ mixin select(s)
       option(value='abstain') Abstain
       each o, i in s.options
         if i === 3
-          option(disabled="true") -- On Less Than 20 State Ballots --
+          option(disabled="true",value="sep") -- On Less Than 20 State Ballots --
         +option(o)
     span.select__label= s.label
 
@@ -29,11 +29,11 @@ block flow-content
       #[a(href="https://en.wikipedia.org/wiki/Instant-runoff_voting",target="_blank") Instant-runoff],
       so rank the candidates by your preference. You may also choose to abstain where you'd like.
   if error
-    p.red= error
+    p.error= error
   form(method="post",action="/vote")
     +fields(form.selects)
     label.checkbox
-      input(type="checkbox",name="abstained",checked=form.abstained)
-      span.checkbox__label I acknowledge that I am abstaining from any choices marked "Abstain"
-    div
+      input(type="checkbox",name="confirmation")
+      span.checkbox__label I acknowledge that I can only vote once and I confirm these selections are accurate.
+    div.ta-center
       input(type="submit")

@@ -17,6 +17,7 @@
   const markSelected = function(s, o, values){
     let notSelected = s.value !== o.value
     notSelected = notSelected && values.indexOf(o.value) > -1
+    notSelected = notSelected || o.value === "sep"
 
     if(notSelected)
       o.setAttribute('disabled', true);

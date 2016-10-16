@@ -67,7 +67,7 @@ app.get('/score', (req, res) => {
 })
 
 app.get('/vote', (req, res) => {
-  const ballot = new Ballot(req.session.voter, {})
+  const ballot = new Ballot(req.session.voter, {confirmation: true})
 
   ballot.on('ready', () => {
     res.render('pages/flow/vote', ballot.serialize())
@@ -79,8 +79,8 @@ app.get('/vote', (req, res) => {
 })
 
 app.post('/vote', (req, res) => {
-  const {choices,abstained} = req.body;
-  const ballot = new Ballot(req.session.voter, {choices, abstained})
+  const {choices,confirmation} = req.body;
+  const ballot = new Ballot(req.session.voter, {choices, confirmation})
 
   ballot.on('ready', (result) => {
     ballot.save(() => res.render('pages/flow/complete'))
