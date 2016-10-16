@@ -31,7 +31,7 @@
     "watch": "npm-run-all --parallel watch:*",
     "production": "npm run build && npm run serve",
     "build:js": "webpack --config webpack.production.js -d --display-reasons --display-chunks --progress --colors",
-    "build:css": "node-sass --include-path scss src/css/app.scss dist/css/app.css",
+    "build:css": "node-sass --include-path scss src/css/app.scss public/css/app.css",
     "build:server": "babel -d build server -s --presets es2015,stage-2",
     "watch:server": "nodemon server/index.js --exec babel-node --presets es2015,stage-2",
     "watch:js": "webpack --config webpack.config.js -d --display-reasons --display-chunks --progress --watch --colors",

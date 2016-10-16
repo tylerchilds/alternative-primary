@@ -8,7 +8,7 @@ var config = module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/dist/js'
+    path: __dirname + '/public/js'
   },
   resolve: {
     extensions: ['', '.js'],
