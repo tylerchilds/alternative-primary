@@ -1,0 +1,28 @@
+extends ../layouts/default.pug
+
+block content
+  div.wrapper-small
+    h2 Transparency
+    p.
+      The source code is available now and the votes will be made available after the deadline is past.
+    h3 Votes
+    p.
+      After the deadline for voting is closed, the winner will be determined by
+      #[a(href="https://en.wikipedia.org/wiki/Instant-runoff_voting",target="_blank") Instant-runoff] for users above the appropriate confidence scores
+      for both being real and american.
+
+    p.
+      It will be also available in the following format, in its entirety, for outside analysis.
+    pre
+      code.
+        [
+          {
+            choices: (array),
+            eligible: (float, % 0..100),
+            real: (float, % 0..100)
+          }
+        ]
+
+    h3 Source code
+    p.
+      The source code for AlternativePrimary.org is available in its entirety on GitHub.

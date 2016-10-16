@@ -4,31 +4,6 @@ import passport from '../services/passport'
 import Voter from '../lib/voter'
 import Ballot from '../lib/ballot'
 
-// respond with "hello world" when a GET request is made to the homepage
-app.get('/', (req, res) => {
-  res.render('pages/index');
-})
-
-app.get('/auth/facebook', passport.authenticate('facebook', {scope: passport.SCOPES}));
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/500' }),
-  function(req, res) {
-    res.render('pages/flow/callback');
-  }
-)
-
-app.get('/logout', (req, res) => {
-  firebase.auth().signOut().then(function() {
-    res.redirect('/');
-  }, function(error) {
-    res.redirect('/500');
-  });
-})
-
-app.get('/start', (req, res) => {
-  res.render('pages/flow/start');
-})
 
 app.get('/dump', (req, res) => {
   firebase.database().ref('voters')
@@ -48,7 +23,37 @@ app.get('/dump', (req, res) => {
     });
 
   // firebase.database().ref('ballots').set(null)
-  // firebase.database().ref('voters').set(null)
+  //firebase.database().ref('voters/10153915629681845').set(null)
+})
+
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/', (req, res) => {
+  res.render('pages/index');
+})
+
+/* Facebook connection relevant pages */
+
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: passport.SCOPES}));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/500' }),
+  function(req, res) {
+    res.render('pages/flow/callback');
+  }
+)
+
+app.get('/logout', (req, res) => {
+  firebase.auth().signOut().then(function() {
+    res.redirect('/');
+  }, function(error) {
+    res.redirect('/500');
+  });
+})
+
+/* Flow pages! */
+
+app.get('/start', (req, res) => {
+  res.render('pages/flow/start');
 })
 
 app.get('/score', (req, res) => {
@@ -95,3 +100,14 @@ app.post('/vote', (req, res) => {
 app.get('/complete', (req, res) => {
   res.render('pages/flow/complete');
 })
+
+app.get('/:page?', function(req, res) {
+  try{
+    const { page } = req.params;
+    res.render(`pages/${page}`);
+  } catch(e){
+    console.log(e)
+    res.render(`pages/404`);
+  }
+
+});
