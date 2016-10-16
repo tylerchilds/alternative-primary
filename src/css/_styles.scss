@@ -1,0 +1,57 @@
+.v-align{
+  display: table;
+  width: 100%;
+}
+
+.v-align .middle{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.hero{
+  @include hero-image("../img/", "hero");
+  animation: background-color 4000ms linear infinite;
+  background-color: $red;
+  -moz-background-blend-mode: hard-light;
+  -webkit-background-blend-mode: hard-light;
+  background-blend-mode: hard-light;
+  box-sizing: border-box;
+  color: $white;
+  padding: 10px;
+  min-height: 300px;
+  text-align: center;
+
+  @media screen and (min-width: 800px){
+    min-height: 400px;
+  }
+
+  &:after{
+    animation: opacity 2000ms linear infinite;
+    -moz-mix-blend-mode: darken;
+    -webkit-mix-blend-mode: darken;
+    mix-blend-mode: darken;
+    background-color: $gray1;
+    bottom: 0;
+    content: '';
+    left: 0;
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+  }
+}
+
+.hero-text{
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: $font-size;
+  margin: auto;
+  position: relative;
+  vertical-align: middle;
+  z-index: 2;
+}
+
+.subtitle{
+  font-size: $font-size--large;
+}

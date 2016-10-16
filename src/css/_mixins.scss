@@ -1,0 +1,37 @@
+$breakpoints: 100, 321, 500, 800, 1300;
+$suffices: "_mobile", "_phablet", "_tablet", "_desktop", "_max";
+
+@mixin hero-image($path, $base_name, $ext : ".jpg"){
+  position: relative;
+  background-size: cover;
+  background-position: center;
+
+  @for $i from 1 through length($breakpoints) {
+    $break: nth($breakpoints, $i);
+    $suffix: nth($suffices, $i);
+
+    @media screen and (min-width:$break+"px"){
+      background-image: url($path + $base_name + $suffix + $ext);
+
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dppx) {
+        background-image: url($path + $base_name + "_2x" + $suffix + $ext);
+      }
+    }
+  }
+}
+
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
