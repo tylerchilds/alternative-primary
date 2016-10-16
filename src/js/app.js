@@ -1,6 +1,7 @@
 (function(){
   window.onload = function() {
     document.addEventListener('change', handleSelection)
+    stickFooter()
   };
 
   const handleSelection = function(){
@@ -34,5 +35,13 @@
     })
 
     return values;
+  }
+
+  const stickFooter = function(){
+    const html = document.querySelector('body')
+    const footer = document.querySelector('footer')
+
+    footer.className += ' sticky'
+    html.style.paddingBottom = footer.offsetHeight;
   }
 })()

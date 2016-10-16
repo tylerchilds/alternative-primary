@@ -71,6 +71,13 @@ footer{
   }
 }
 
+.sticky{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .footer-content{
   background-color: rgba(0, 31, 63, .85);
   -moz-background-blend-mode: hard-light;
@@ -89,6 +96,11 @@ footer{
 footer h4{
   padding-bottom: 1rem;
   text-align: left;
+
+  &:before,
+  &:after{
+    opacity: .75;
+  }
 }
 
 footer ul{
