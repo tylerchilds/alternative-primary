@@ -47,7 +47,8 @@ app.get('/dump', (req, res) => {
       console.log("The read failed: " + errorObject.code);
     });
 
-  firebase.database().ref('ballots').set({})
+  // firebase.database().ref('ballots').set(null)
+  // firebase.database().ref('voters').set(null)
 })
 
 app.get('/score', (req, res) => {
@@ -83,7 +84,7 @@ app.post('/vote', (req, res) => {
   const ballot = new Ballot(req.session.voter, {choices, confirmation})
 
   ballot.on('ready', (result) => {
-    ballot.save(() => res.render('pages/flow/complete'))
+    ballot.save(() => res.redirect('/complete'))
   }).on('error', () => {
     res.render('pages/flow/vote', ballot.serialize())
   });
