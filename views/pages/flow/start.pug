@@ -1,0 +1,16 @@
+extends ../../layouts/flow.pug
+
+block steps
+  div
+    +steps(0)
+
+block flow-content
+  div.ta-center
+    h2 Connect Facebook
+    p Your data will be analyzed to determine the legitimacy of your Facebook account and how american you appear.
+    p
+      a(href="/auth/facebook").btn Connect to Facebook
+    p.fs-small.
+      By connecting Facebook, you agree to the<br/>
+      #[a(href="/terms-of-use") Terms of Use] and
+      #[a(href="/privacy-policy") Privacy Policy] of AlternativePrimary.org.

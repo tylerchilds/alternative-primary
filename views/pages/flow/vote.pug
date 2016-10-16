@@ -1,4 +1,4 @@
-extends ../layouts/flow.pug
+extends ../../layouts/flow.pug
 
 mixin fields(selects)
   each s in selects
@@ -17,9 +17,19 @@ mixin select(s)
 mixin option(o)
   option(value=o.value,selected=o.selected,disabled=o.disabled)= o.value
 
+block steps
+  div
+    +steps(2)
+
 block flow-content
+  div.ta-center
+    h2 Vote
+    p.
+      The winner will be determined by
+      #[a(href="https://en.wikipedia.org/wiki/Instant-runoff_voting",target="_blank") Instant-runoff],
+      so rank the candidates by your preference. You may also choose to abstain where you'd like.
   if error
-    p.error= error
+    p.red= error
   form(method="post",action="/vote")
     +fields(form.selects)
     label.checkbox

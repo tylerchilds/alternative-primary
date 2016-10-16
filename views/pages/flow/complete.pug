@@ -1,0 +1,10 @@
+extends ../../layouts/flow.pug
+
+block steps
+  div
+    +steps(3)
+
+block flow-content
+  div.ta-center
+    h2 Thanks for Voting!
+    p Check #[a(href="/results") the results] after November 1st.

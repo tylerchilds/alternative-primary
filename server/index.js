@@ -14,7 +14,7 @@ app.get('/auth/facebook', passport.authenticate('facebook', {scope: passport.SCO
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/500' }),
   function(req, res) {
-    res.render('pages/callback');
+    res.render('pages/flow/callback');
   }
 )
 
@@ -27,7 +27,7 @@ app.get('/logout', (req, res) => {
 })
 
 app.get('/start', (req, res) => {
-  res.render('pages/start');
+  res.render('pages/flow/start');
 })
 
 app.get('/dump', (req, res) => {
@@ -70,9 +70,9 @@ app.get('/vote', (req, res) => {
   const ballot = new Ballot(req.session.voter, {})
 
   ballot.on('ready', () => {
-    res.render('pages/vote', ballot.serialize())
+    res.render('pages/flow/vote', ballot.serialize())
   }).on('error', () => {
-    res.render('pages/vote', ballot.serialize())
+    res.render('pages/flow/vote', ballot.serialize())
   });
 
   ballot.initialize()
@@ -83,14 +83,14 @@ app.post('/vote', (req, res) => {
   const ballot = new Ballot(req.session.voter, {choices, abstained})
 
   ballot.on('ready', (result) => {
-    ballot.save(() => res.render('pages/complete'))
+    ballot.save(() => res.render('pages/flow/complete'))
   }).on('error', () => {
-    res.render('pages/vote', ballot.serialize())
+    res.render('pages/flow/vote', ballot.serialize())
   });
 
   ballot.initialize()
 })
 
 app.get('/complete', (req, res) => {
-  res.render('pages/start');
+  res.render('pages/flow/complete');
 })

@@ -1,5 +1,21 @@
 extends default.pug
 
+mixin steps(step)
+  div.steps
+    - for(var i = 0; i < 3; i++)
+      +step(step, i)
+
+mixin step(step, i)
+  if step > i
+    span.step.star
+  else if step == i
+    span.step.active= i+1
+  else
+    span.step= i+1
+
 block content
   div.wrapper-small
-    block flow-content
+    block steps
+    div.flow-content
+      block flow-title
+      block flow-content

@@ -40,7 +40,6 @@ header h1{
 }
 
 footer{
-  background-color: $blue-dark;
   min-height: 200px;
   position: relative;
   overflow: hidden;
@@ -60,26 +59,28 @@ footer{
     linear-gradient(288deg, $white-dark 8.5%, transparent 8.5%) -20px 93px,
     linear-gradient(216deg, $white-dark 7.5%, transparent 7.5%) -20px 73px,
     linear-gradient(144deg, $white-dark 7.5%, transparent 7.5%) 80px 73px;
+    background-color: $blue-dark;
     background-size: 100px 100px;
     bottom: 0;
     content: '';
     left: 0;
     position: absolute;
+    opacity: .05;
     right: 0;
     top: 0;
   }
 }
 
 .footer-content{
-  background-color: rgba(0, 0, 0, .85);
-  box-sizing: border-box;
-  color: $white;
-  padding-top: 0;
-  padding-bottom: 100rem;
-  margin-bottom: -100rem;
-  position: relative;
-  text-shadow: 1px 1px 1px $gray1;
-  z-index: 2;
+  // background-color: rgba(0, 0, 0, .75);
+  // box-sizing: border-box;
+  // color: $white;
+  // padding-top: 0;
+  // padding-bottom: 100rem;
+  // margin-bottom: -100rem;
+  // position: relative;
+  // text-shadow: 1px 1px 1px $gray1;
+  // z-index: 2;
 }
 
 footer h4{
@@ -91,22 +92,67 @@ footer ul{
   margin-left: 0;
 }
 
-footer a{
-  &:link{
+// footer a{
+//   &:link{
+//     color: $white;
+//     text-decoration: none;
+//   }
+//
+//   &:visited{
+//     color: darken($white, 15%);
+//   }
+//
+//   &:hover,
+//   &:focus{
+//     color: darken($white, 10%);
+//   }
+//
+//   &:active{
+//     color: lighten($white, 5%);
+//   }
+// }
+
+.flow-content{
+  border-top: 1px solid $gray5;
+  padding-top: 1.2rem;
+
+  @media screen and (min-width: 600px){
+    border: 1px solid $gray5;
+    border-radius: 2px;
+    padding: 2.4rem 1.2rem 1.2rem;
+  }
+}
+
+.steps{
+  position: relative;
+  text-align: center;
+  top: 1.5rem
+}
+
+.step{
+  display: inline-block;
+  background-color: $gray5;
+  border-radius: 3rem;
+  font-size: $font-size;
+  height: 2.9rem;
+  width: 3rem;
+  line-height: 3rem;
+  padding-top: .1rem;
+  margin: 0 .6rem;
+
+  &.star{
+    background-color: #fff;
+    background-color: $blue-dark;
     color: $white;
-    text-decoration: none;
+
+    &:before{
+      content: '\2605';
+      display: block;
+    }
   }
 
-  &:visited{
-    color: darken($white, 15%);
-  }
-
-  &:hover,
-  &:focus{
-    color: darken($white, 10%);
-  }
-
-  &:active{
-    color: lighten($white, 5%);
+  &.active{
+    background-color: $blue-dark;
+    color: $white;
   }
 }
