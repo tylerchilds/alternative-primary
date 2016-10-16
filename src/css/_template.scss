@@ -16,7 +16,7 @@ header{
 
 header h1{
   background-color: $blue-dark;
-  color: $white;
+  color: $white-dark;
   display: inline-block;
   font-size: 2.4rem;
   padding: 0 .5rem;
@@ -88,6 +88,7 @@ footer{
 
 footer h4{
   padding-bottom: 1rem;
+  text-align: left;
 }
 
 footer ul{
@@ -95,23 +96,24 @@ footer ul{
   margin-left: 0;
 }
 
+header a,
 footer a{
   &:link{
-    color: $white;
+    color: $white-dark;
     text-decoration: none;
   }
 
   &:visited{
-    color: darken($white, 15%);
+    color: $white-dark;
   }
 
   &:hover,
   &:focus{
-    color: darken($white, 10%);
+    color: lighten($white-dark, 10%);
   }
 
   &:active{
-    color: lighten($white, 5%);
+    color: darken($white-dark, 5%);
   }
 }
 
@@ -158,4 +160,9 @@ footer a{
     background-color: $blue-dark;
     color: $white;
   }
+}
+
+.inner-wrapper{
+  margin: 0 auto;
+  width: 640px;
 }
