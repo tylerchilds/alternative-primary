@@ -65,15 +65,24 @@ footer{
     content: '';
     left: 0;
     position: absolute;
-    opacity: .05;
+    opacity: 1;
     right: 0;
     top: 0;
   }
 }
 
 .footer-content{
+  background-color: rgba(0, 31, 63, .85);
+  -moz-background-blend-mode: hard-light;
+  -webkit-background-blend-mode: hard-light;
+  background-blend-mode: hard-light;
   box-sizing: border-box;
+  color: $white;
+  padding-top: 0;
+  padding-bottom: 100rem;
+  margin-bottom: -100rem;
   position: relative;
+  text-shadow: 1px 1px 1px $gray1;
   z-index: 2;
 }
 
@@ -86,25 +95,25 @@ footer ul{
   margin-left: 0;
 }
 
-// footer a{
-//   &:link{
-//     color: $white;
-//     text-decoration: none;
-//   }
-//
-//   &:visited{
-//     color: darken($white, 15%);
-//   }
-//
-//   &:hover,
-//   &:focus{
-//     color: darken($white, 10%);
-//   }
-//
-//   &:active{
-//     color: lighten($white, 5%);
-//   }
-// }
+footer a{
+  &:link{
+    color: $white;
+    text-decoration: none;
+  }
+
+  &:visited{
+    color: darken($white, 15%);
+  }
+
+  &:hover,
+  &:focus{
+    color: darken($white, 10%);
+  }
+
+  &:active{
+    color: lighten($white, 5%);
+  }
+}
 
 .flow-content{
   border-top: 1px solid $gray5;
