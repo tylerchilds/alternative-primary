@@ -4,15 +4,17 @@ h3{
 }
 
 h3{
-  &:before,
-  &:after{
-    color: $gray5;
-    content: '\2605';
-    display: inline-block;
-    font-size: 1.6rem;
-    padding: 0 1rem;
-    position: relative;
-    top: -.5rem
+  @media screen and (min-width: 600px){
+    &:before,
+    &:after{
+      color: $gray5;
+      content: '\2605';
+      display: inline-block;
+      font-size: 1.6rem;
+      padding: 0 1rem;
+      position: relative;
+      top: -.5rem
+    }
   }
 }
 
