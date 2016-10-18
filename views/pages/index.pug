@@ -1,13 +1,21 @@
 extends ../layouts/default.pug
 
+mixin cta
+  p
+
+    if voted
+      a(href="/results").btn View Results
+    else if signedIn
+      a(href="/vote").btn Vote Now
+    else
+      a(href="/start").btn Get Started
+
 block content
   div.hero.v-align
     div.hero-text.middle
       h1 Why settle for our President?
       p.subtitle Nominate the best third party candidate to vote for in the general election.
-      p
-        a(href="/start").btn Get Started
-
+      +cta
   div.wrapper
     div.inner-wrapper
       h3 What is this for?

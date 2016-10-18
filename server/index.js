@@ -5,31 +5,9 @@ import Voter from '../lib/voter'
 import Ballot from '../lib/ballot'
 import Bouncer from '../lib/bouncer'
 
-app.get('/dump', (req, res) => {
-  firebase.database().ref('voters')
-    .once('value')
-    .then((snapshot) => {
-      console.log(snapshot.val())
-    }, (errorObject) => {
-      console.log("The read failed: " + errorObject.code);
-    });
-
-  firebase.database().ref('ballots')
-    .once('value')
-    .then((snapshot) => {
-      console.log(snapshot.val())
-    }, (errorObject) => {
-      console.log("The read failed: " + errorObject.code);
-    });
-
-  // firebase.database().ref('ballots').set(null)
-  // firebase.database().ref('voters').set(null)
-})
-
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
   const user = new Bouncer(req, res).serialize()
-  console.log(user)
   res.render('pages/index', user);
 })
 

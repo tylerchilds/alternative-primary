@@ -23,8 +23,9 @@ html
           div
             h4 Voter Tools
             ul
-              li #[a(href="/start") Vote]
-              li #[a(href="/pledge") Pledge]
+              if ! voted
+                li #[a(href="/start") Vote]
+              //li #[a(href="/pledge") Pledge]
               li #[a(href="/results") Results]
               li #[a(href="/scores") Scores]
               if signedIn
