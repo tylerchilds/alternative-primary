@@ -1,35 +1,22 @@
-h2{
-  text-align: center;
-}
-
+h2,
 h3,
 h4{
   text-align: center;
-
-  &:before,
-  &:after{
-    display: inline-block;
-    font-size: 1.6rem;
-    position: relative;
-    color: $gray5;
-    content: '\2605';
-    padding: 0 1rem;
-  }
 }
 
 h3{
   &:before,
   &:after{
+    color: $gray5;
+    content: '\2605';
+    display: inline-block;
+    font-size: 1.6rem;
+    padding: 0 1rem;
+    position: relative;
     top: -.5rem
   }
 }
 
-h4{
-  &:before,
-  &:after{
-    top: -.3rem
-  }
-}
 .v-align{
   display: table;
   width: 100%;

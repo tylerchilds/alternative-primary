@@ -4,7 +4,7 @@ const FB = require('passport-facebook')
 
 require('dotenv').config();
 
-passport.scopes = ['user_posts',
+passport.SCOPES = ['user_posts',
   'user_tagged_places',
   'user_birthday',
   'user_photos',

@@ -44,6 +44,22 @@ footer{
   position: relative;
   overflow: hidden;
 
+  &:before,
+  &:after{
+    bottom: 0;
+    content: '';
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &:before{
+    background-color: $blue-dark;
+    opacity: .9;
+    z-index: 2;
+  }
+
   &:after{
     background:
     linear-gradient(324deg, $blue-dark 4%,   transparent 4%) -70px 43px,
@@ -61,13 +77,8 @@ footer{
     linear-gradient(144deg, $white-dark 7.5%, transparent 7.5%) 80px 73px;
     background-color: $blue-dark;
     background-size: 100px 100px;
-    bottom: 0;
-    content: '';
-    left: 0;
-    position: absolute;
     opacity: 1;
-    right: 0;
-    top: 0;
+    z-index: 1;
   }
 }
 
@@ -79,10 +90,6 @@ footer{
 }
 
 .footer-content{
-  background-color: rgba(0, 31, 63, .85);
-  -moz-background-blend-mode: hard-light;
-  -webkit-background-blend-mode: hard-light;
-  background-blend-mode: hard-light;
   box-sizing: border-box;
   color: $white;
   padding-top: 0;
