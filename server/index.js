@@ -23,7 +23,7 @@ app.get('/dump', (req, res) => {
     });
 
   // firebase.database().ref('ballots').set(null)
-  //firebase.database().ref('voters/10153915629681845').set(null)
+  // firebase.database().ref('voters').set(null)
 })
 
 // respond with "hello world" when a GET request is made to the homepage
@@ -99,6 +99,16 @@ app.post('/vote', (req, res) => {
 
 app.get('/complete', (req, res) => {
   res.render('pages/flow/complete');
+})
+
+app.get('/scores', (req, res) => {
+  let {eligible, real} = req.session.voter;
+
+  eligible = Math.round(eligible)
+  real = Math.round(real)
+  console.log(eligible)
+  console.log(real)
+  res.render('pages/scores', {eligible, real});
 })
 
 app.get('/:page?', function(req, res) {

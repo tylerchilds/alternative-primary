@@ -8,7 +8,6 @@ An online voting system to elect a wildcard candidate. A primary for third parti
 1. `npm start`
 
 ## TODO
-1. TEST some user data
 1. get fb approval
 1. add privacy policy/terms of use and correct content
 1. make fb group and fb event

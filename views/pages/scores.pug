@@ -1,0 +1,12 @@
+extends ../layouts/default.pug
+
+block content
+  div.wrapper-small
+    h2 Confidence Scores
+    p These scores were calculated the first time you connected Facebook and cannot be re-calculated. This is in order to ensure the integrity of the voting system.
+    if eligible
+      p.
+        American: #[strong= eligible]%<br/>
+        Legitimate: #[strong= real]%
+    p.
+      These numbers are calculated based on how you use Facebook. The only private information of yours that we store is your Facebook ID.

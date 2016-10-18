@@ -29,7 +29,7 @@ block flow-content
       #[a(href="https://en.wikipedia.org/wiki/Instant-runoff_voting",target="_blank") Instant-runoff],
       so rank the candidates by your preference. You may also choose to abstain where you'd like.
   if error
-    p.error= error
+    p.red.fw-bold= error
   form(method="post",action="/vote")
     +fields(form.selects)
     label.checkbox
