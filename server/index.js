@@ -52,54 +52,54 @@ app.get('/logout', (req, res) => {
 
 /* Flow pages! */
 
-app.get('/start', (req, res) => {
-  res.render('pages/flow/start');
-})
-
-app.get('/score', (req, res) => {
-  const profile = req.session.passport.user._json;
-  var voter = new Voter(profile)
-
-  voter.on('ready', (result) => {
-    req.session.voter = result;
-    req.session.passport = null;
-
-    res.redirect('/vote');
-  }).on('error', () => {
-    res.redirect('/500')
-  });
-
-  voter.initialize()
-})
-
-app.get('/vote', (req, res) => {
-  const ballot = new Ballot(req.session.voter, {confirmation: true})
-
-  ballot.on('ready', () => {
-    res.render('pages/flow/vote', ballot.serialize())
-  }).on('error', () => {
-    res.render('pages/flow/vote', ballot.serialize())
-  });
-
-  ballot.initialize()
-})
-
-app.post('/vote', (req, res) => {
-  const {choices,confirmation} = req.body;
-  const ballot = new Ballot(req.session.voter, {choices, confirmation})
-
-  ballot.on('ready', (result) => {
-    ballot.save(() => res.redirect('/complete'))
-  }).on('error', () => {
-    res.render('pages/flow/vote', ballot.serialize())
-  });
-
-  ballot.initialize()
-})
-
-app.get('/complete', (req, res) => {
-  res.render('pages/flow/complete');
-})
+// app.get('/start', (req, res) => {
+//   res.render('pages/flow/start');
+// })
+//
+// app.get('/score', (req, res) => {
+//   const profile = req.session.passport.user._json;
+//   var voter = new Voter(profile)
+//
+//   voter.on('ready', (result) => {
+//     req.session.voter = result;
+//     req.session.passport = null;
+//
+//     res.redirect('/vote');
+//   }).on('error', () => {
+//     res.redirect('/500')
+//   });
+//
+//   voter.initialize()
+// })
+//
+// app.get('/vote', (req, res) => {
+//   const ballot = new Ballot(req.session.voter, {confirmation: true})
+//
+//   ballot.on('ready', () => {
+//     res.render('pages/flow/vote', ballot.serialize())
+//   }).on('error', () => {
+//     res.render('pages/flow/vote', ballot.serialize())
+//   });
+//
+//   ballot.initialize()
+// })
+//
+// app.post('/vote', (req, res) => {
+//   const {choices,confirmation} = req.body;
+//   const ballot = new Ballot(req.session.voter, {choices, confirmation})
+//
+//   ballot.on('ready', (result) => {
+//     ballot.save(() => res.redirect('/complete'))
+//   }).on('error', () => {
+//     res.render('pages/flow/vote', ballot.serialize())
+//   });
+//
+//   ballot.initialize()
+// })
+//
+// app.get('/complete', (req, res) => {
+//   res.render('pages/flow/complete');
+// })
 
 app.get('/:page?', function(req, res) {
   try{
