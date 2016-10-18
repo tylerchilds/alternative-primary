@@ -3,7 +3,7 @@ import firebase from '../services/firebase'
 import passport from '../services/passport'
 import Voter from '../lib/voter'
 import Ballot from '../lib/ballot'
-
+import Bouncer from '../lib/bouncer'
 
 app.get('/dump', (req, res) => {
   firebase.database().ref('voters')
@@ -28,7 +28,9 @@ app.get('/dump', (req, res) => {
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
-  res.render('pages/index');
+  const user = new Bouncer(req, res).serialize()
+  console.log(user)
+  res.render('pages/index', user);
 })
 
 /* Facebook connection relevant pages */
@@ -38,12 +40,14 @@ app.get('/auth/facebook', passport.authenticate('facebook', {scope: passport.SCO
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/500' }),
   function(req, res) {
-    res.render('pages/flow/callback');
+    const user = new Bouncer(req, res, {kickVoters: true}).serialize()
+    res.render('pages/flow/callback', user);
   }
 )
 
 app.get('/logout', (req, res) => {
   firebase.auth().signOut().then(function() {
+    req.session.voter = null;
     res.redirect('/');
   }, function(error) {
     res.redirect('/500');
@@ -53,7 +57,8 @@ app.get('/logout', (req, res) => {
 /* Flow pages! */
 
 app.get('/start', (req, res) => {
-  res.render('pages/flow/start');
+  const user = new Bouncer(req, res, {kickVoters: true}).serialize()
+  res.render('pages/flow/start', user);
 })
 
 app.get('/score', (req, res) => {
@@ -73,50 +78,49 @@ app.get('/score', (req, res) => {
 })
 
 app.get('/vote', (req, res) => {
+  const user = new Bouncer(req, res, {kickVoters: true, signedIn: true}).serialize()
   const ballot = new Ballot(req.session.voter, {confirmation: true})
 
   ballot.on('ready', () => {
-    res.render('pages/flow/vote', ballot.serialize())
+    res.render('pages/flow/vote', {...ballot.serialize(), ...user})
   }).on('error', () => {
-    res.render('pages/flow/vote', ballot.serialize())
+    res.render('pages/flow/vote', {...ballot.serialize(), ...user})
   });
 
   ballot.initialize()
 })
 
 app.post('/vote', (req, res) => {
+  const user = new Bouncer(req, res, {kickVoters: true, signedIn: true}).serialize()
   const {choices,confirmation} = req.body;
   const ballot = new Ballot(req.session.voter, {choices, confirmation})
 
   ballot.on('ready', (result) => {
     ballot.save(() => res.redirect('/complete'))
   }).on('error', () => {
-    res.render('pages/flow/vote', ballot.serialize())
+    res.render('pages/flow/vote', {...ballot.serialize(), ...user})
   });
 
   ballot.initialize()
 })
 
 app.get('/complete', (req, res) => {
-  res.render('pages/flow/complete');
+  const user = new Bouncer(req, res, {signedIn: true}).serialize()
+  res.render('pages/flow/complete', user);
 })
 
 app.get('/scores', (req, res) => {
-  let {eligible, real} = req.session.voter;
-
-  eligible = Math.round(eligible)
-  real = Math.round(real)
-  console.log(eligible)
-  console.log(real)
-  res.render('pages/scores', {eligible, real});
+  const user = new Bouncer(req, res).serialize()
+  res.render('pages/scores', user);
 })
 
 app.get('/:page?', function(req, res) {
+  const user = new Bouncer(req, res).serialize()
   try{
     const { page } = req.params;
-    res.render(`pages/${page}`);
+    res.render(`pages/${page}`, user);
   } catch(e){
     console.log(e)
-    res.render(`pages/404`);
+    res.render(`pages/404`, user);
   }
 });

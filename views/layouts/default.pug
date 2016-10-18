@@ -27,6 +27,8 @@ html
               li #[a(href="/pledge") Pledge]
               li #[a(href="/results") Results]
               li #[a(href="/scores") Scores]
+              if signedIn
+                li #[a(href="/logout") Logout]
           div
             h4 Legal
             ul
