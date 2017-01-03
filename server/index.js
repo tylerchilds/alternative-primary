@@ -32,6 +32,12 @@ app.get('/logout', (req, res) => {
   });
 })
 
+app.get('/destroy', (req, res) => {
+  firebase.database().ref('/').remove();
+
+  res.render('pages/destroy');
+})
+
 /* Flow pages! */
 
 app.get('/start', (req, res) => {
